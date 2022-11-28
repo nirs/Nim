@@ -37,7 +37,8 @@ The first program
 
 We start the tour with a modified "hello world" program:
 
-  ```Nim  test = "nim c $1"
+.. code-block:: nim
+
   # This is a comment
   echo "What's your name? "
   var name: string = readLine(stdin)
@@ -46,27 +47,32 @@ We start the tour with a modified "hello world" program:
 
 
 Save this code to the file "greetings.nim". Now compile and run it:
-  ```cmd
+
+.. code-block:: bash
+
   nim compile --run greetings.nim
-  ```
 
 With the ``--run`` [switch](nimc.html#compiler-usage-commandminusline-switches) Nim
 executes the file automatically after compilation. You can give your program
 command-line arguments by appending them after the filename:
-  ```cmd
+
+.. code-block:: bash
+
   nim compile --run greetings.nim arg1 arg2
-  ```
+
 
 Commonly used commands and switches have abbreviations, so you can also use:
-  ```cmd
+
+.. code-block:: bash
+
   nim c -r greetings.nim
-  ```
 
 This is a **debug version**.
 To compile a release version use:
-  ```cmd
+
+.. code-block:: bash
+
   nim c -d:release greetings.nim
-  ```
 
 By default, the Nim compiler generates a large number of runtime checks
 aiming for your debugging pleasure. With ``-d:release`` some checks are
@@ -90,9 +96,9 @@ compiler knows that [readLine](syncio.html#readLine,File) returns a string,
 you can leave out the type in the declaration (this is called `local type
 inference`:idx:). So this will work too:
 
-  ```Nim  test = "nim c $1"
+.. code-block:: nim
+
   var name = readLine(stdin)
-  ```
 
 Note that this is basically the only form of type inference that exists in
 Nim: it is a good compromise between brevity and readability.
@@ -118,15 +124,15 @@ String literals are enclosed in double-quotes; character literals in single
 quotes. Special characters are escaped with ``\``: ``\n`` means newline, ``\t``
 means tabulator, etc. There are also *raw* string literals:
 
-  ```Nim
+.. code-block:: nim
+
   r"C:\program files\nim"
-  ```
 
 In raw literals, the backslash is not an escape character.
 
 The third and last way to write string literals is *long-string literals*.
 They are written with three quotes: `""" ... """`; they can span over
-multiple lines and the ``\`` is not an escape character either. They are very
+multiple lines and the ``\\`` is not an escape character either. They are very
 useful for embedding HTML code templates for example.
 
 
@@ -136,11 +142,11 @@ Comments
 Comments start anywhere outside a string or character literal with the
 hash character `#`. Documentation comments start with `##`:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   # A comment.
 
   var myVariable: int ## a documentation comment
-  ```
 
 
 Documentation comments are tokens; they are only allowed at certain places in
@@ -150,7 +156,8 @@ documentation generators.
 Multiline comments are started with `#[` and terminated with `]#`.  Multiline
 comments can also be nested.
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   #[
   You can have any Nim code text commented
   out inside this with no indentation restrictions.
@@ -159,7 +166,6 @@ comments can also be nested.
        Note: these can be nested!!
     ]#
   ]#
-  ```
 
 
 Numbers
@@ -177,19 +183,19 @@ The var statement
 =================
 The var statement declares a new local or global variable:
 
-  ```nim
+.. code-block:: nim
+
   var x, y: int # declares x and y to have the type `int`
-  ```
 
 Indentation can be used after the `var` keyword to list a whole section of
 variables:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   var
     x, y: int
     # a comment can occur here too
     a, b, c: string
-  ```
 
 
 Constants
@@ -199,20 +205,20 @@ Constants are symbols which are bound to a value. The constant's value
 cannot change. The compiler must be able to evaluate the expression in a
 constant declaration at compile time:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   const x = "abc" # the constant x contains the string "abc"
-  ```
 
 Indentation can be used after the `const` keyword to list a whole section of
 constants:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   const
     x = 1
     # a comment can occur here too
     y = 2
     z = y + 5 # computations are possible
-  ```
 
 
 The let statement
@@ -221,22 +227,22 @@ The `let` statement works like the `var` statement but the declared
 symbols are *single assignment* variables: After the initialization their
 value cannot change:
 
-  ```nim
+.. code-block:: nim
+
   let x = "abc" # introduces a new variable `x` and binds a value to it
   x = "xyz"     # Illegal: assignment to `x`
-  ```
 
 The difference between `let` and `const` is: `let` introduces a variable
 that can not be re-assigned, `const` means "enforce compile time evaluation
 and put it into a data section":
 
-  ```nim
-  const input = readLine(stdin) # Error: constant expression expected
-  ```
+.. code-block:: nim
 
-  ```nim  test = "nim c $1"
+  const input = readLine(stdin) # Error: constant expression expected
+
+.. code-block:: nim
+
   let input = readLine(stdin)   # works
-  ```
 
 
 The assignment statement
@@ -245,23 +251,23 @@ The assignment statement
 The assignment statement assigns a new value to a variable or more generally
 to a storage location:
 
-  ```nim
+.. code-block:: nim
+
   var x = "abc" # introduces a new variable `x` and assigns a value to it
   x = "xyz"     # assigns a new value to `x`
-  ```
 
 `=` is the *assignment operator*. The assignment operator can be
 overloaded. You can declare multiple variables with a single assignment
 statement and all the variables will have the same value:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   var x, y = 3  # assigns 3 to the variables `x` and `y`
   echo "x ", x  # outputs "x 3"
   echo "y ", y  # outputs "y 3"
   x = 42        # changes `x` to 42 without changing `y`
   echo "x ", x  # outputs "x 42"
   echo "y ", y  # outputs "y 3"
-  ```
 
 
 Control flow statements
@@ -277,7 +283,8 @@ If statement
 
 The if statement is one way to branch the control flow:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   let name = readLine(stdin)
   if name == "":
     echo "Poor soul, you lost your name?"
@@ -285,7 +292,6 @@ The if statement is one way to branch the control flow:
     echo "Very funny, your name is name."
   else:
     echo "Hi, ", name, "!"
-  ```
 
 There can be zero or more `elif` parts, and the `else` part is optional.
 The keyword `elif` is short for `else if`, and is useful to avoid
@@ -299,7 +305,8 @@ Case statement
 Another way to branch is provided by the case statement. A case statement allows
 for multiple branches:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   let name = readLine(stdin)
   case name
   of "":
@@ -310,7 +317,6 @@ for multiple branches:
     echo "Cool name!"
   else:
     echo "Hi, ", name, "!"
-  ```
 
 As it can be seen, for an `of` branch a comma-separated list of values is also
 allowed.
@@ -319,7 +325,8 @@ The case statement can deal with integers, other ordinal types, and strings.
 (What an ordinal type is will be explained soon.)
 For integers or other ordinal types value ranges are also possible:
 
-  ```nim
+.. code-block:: nim
+
   # this statement will be explained later:
   from std/strutils import parseInt
 
@@ -328,7 +335,6 @@ For integers or other ordinal types value ranges are also possible:
   case n
   of 0..2, 4..7: echo "The number is in the set: {0, 1, 2, 4, 5, 6, 7}"
   of 3, 8: echo "The number is 3 or 8"
-  ```
 
 However, the above code **does not compile**: the reason is that you have to cover
 every value that `n` may contain, but the code only handles the values
@@ -336,13 +342,13 @@ every value that `n` may contain, but the code only handles the values
 (though it is possible thanks to the range notation), we fix this by telling
 the compiler that for every other value nothing should be done:
 
-  ```nim
+.. code-block:: nim
+
   ...
   case n
   of 0..2, 4..7: echo "The number is in the set: {0, 1, 2, 4, 5, 6, 7}"
   of 3, 8: echo "The number is 3 or 8"
   else: discard
-  ```
 
 The empty [discard statement] is a *do
 nothing* statement. The compiler knows that a case statement with an else part
@@ -360,13 +366,13 @@ While statement
 
 The while statement is a simple looping construct:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   echo "What's your name? "
   var name = readLine(stdin)
   while name == "":
     echo "Please tell me your name: "
     name = readLine(stdin) # no `var`, because we do not declare a new variable here
-  ```
 
 The example uses a while loop to keep asking the users for their name, as long
 as the user types in nothing (only presses RETURN).
@@ -379,79 +385,79 @@ The `for` statement is a construct to loop over any element an *iterator*
 provides. The example uses the built-in [countup](
 system.html#countup.i,T,T,Positive) iterator:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   echo "Counting to ten: "
   for i in countup(1, 10):
     echo i
   # --> Outputs 1 2 3 4 5 6 7 8 9 10 on different lines
-  ```
 
 The variable `i` is implicitly declared by the
 `for` loop and has the type `int`, because that is what [countup](
 system.html#countup.i,T,T,Positive) returns. `i` runs through the values
 1, 2, .., 10. Each value is `echo`-ed. This code does the same:
 
-  ```nim
+.. code-block:: nim
+
   echo "Counting to 10: "
   var i = 1
   while i <= 10:
     echo i
     inc i # increment i by 1
   # --> Outputs 1 2 3 4 5 6 7 8 9 10 on different lines
-  ```
 
 Since counting up occurs so often in programs, Nim also has a [..](
 system.html#...i,T,T) iterator that does the same:
 
-  ```nim
+.. code-block:: nim
+
   for i in 1 .. 10:
     ...
-  ```
 
 Counting down can be achieved as easily (but is less often needed):
 
-  ```nim
+.. code-block:: nim
+
   echo "Counting down from 10 to 1: "
   for i in countdown(10, 1):
     echo i
   # --> Outputs 10 9 8 7 6 5 4 3 2 1 on different lines
-  ```
 
 Zero-indexed counting has two shortcuts `..<` and `.. ^1`
 ([backward index operator](system.html#^.t%2Cint)) to simplify
 counting to one less than the higher index:
 
-  ```nim
+.. code-block:: nim
+
   for i in 0 ..< 10:
     ...  # the same as 0 .. 9
-  ```
 
 or
 
-  ```nim
+.. code-block:: nim
+
   var s = "some string"
   for i in 0 ..< s.len:
     ...
-  ```
 
 or
 
-  ```nim
+.. code-block:: nim
+
   var s = "some string"
   for idx, c in s[0 .. ^1]:
     ... # ^1 is the last element, ^2 would be one before it, and so on
-  ```
 
 Other useful iterators for collections (like arrays and sequences) are
 * `items` and `mitems`, which provides immutable and mutable elements respectively, and
 * `pairs` and `mpairs` which provides the element and an index number (immutable and mutable respectively)
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   for index, item in ["a","b"].pairs:
     echo item, " at index ", index
   # => a at index 0
   # => b at index 1
-  ```
 
 Scopes and the block statement
 ------------------------------
@@ -460,21 +466,21 @@ Control flow statements have a feature not covered yet: they open a
 new scope. This means that in the following example, `x` is not accessible
 outside the loop:
 
-  ```nim  test = "nim c $1"  status = 1
+.. code-block:: nim
+
   while false:
     var x = "hi"
   echo x # does not work
-  ```
 
 A while (for) statement introduces an implicit block. Identifiers
 are only visible within the block they have been declared. The `block`
 statement can be used to open a new block explicitly:
 
-  ```nim  test = "nim c $1"  status = 1
+.. code-block:: nim
+
   block myblock:
     var x = "hi"
   echo x # does not work either
-  ```
 
 The block's *label* (`myblock` in the example) is optional.
 
@@ -486,7 +492,8 @@ A block can be left prematurely with a `break` statement. The break statement
 can leave a `while`, `for`, or a `block` statement. It leaves the
 innermost construct, unless a label of a block is given:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   block myblock:
     echo "entering block"
     while true:
@@ -502,8 +509,6 @@ innermost construct, unless a label of a block is given:
       break myblock2 # leaves the block (and the loop)
     echo "still in block" # it won't be printed
   echo "outside the block"
-  ```
-
 
 Continue statement
 ------------------
@@ -511,11 +516,11 @@ Continue statement
 Like in many other programming languages, a `continue` statement starts
 the next iteration immediately:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   for i in 1 .. 5:
     if i <= 3: continue
     echo i # will only print 4 and 5
-  ```
 
 
 When statement
@@ -523,7 +528,8 @@ When statement
 
 Example:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   when system.hostOS == "windows":
     echo "running on Windows!"
   elif system.hostOS == "linux":
@@ -532,7 +538,6 @@ Example:
     echo "running on Mac OS X!"
   else:
     echo "unknown operating system"
-  ```
 
 The `when` statement is almost identical to the `if` statement, but with these
 differences:
@@ -560,7 +565,8 @@ statements. *Complex statements* like `if`, `when`, `for`, `while` can
 contain other statements. To avoid ambiguities, complex statements must always
 be indented, but single simple statements do not:
 
-  ```nim
+.. code-block:: nim
+
   # no indentation needed for single-assignment statement:
   if x: x = false
 
@@ -575,19 +581,17 @@ be indented, but single simple statements do not:
   if x:
     x = false
     y = false
-  ```
-
 
 *Expressions* are parts of a statement that usually result in a value. The
 condition in an if statement is an example of an expression. Expressions can
 contain indentation at certain places for better readability:
 
-  ```nim
+.. code-block:: nim
+
   if thisIsaLongCondition() and
       thisIsAnotherLongCondition(1,
          2, 3, 4):
     x = true
-  ```
 
 As a rule of thumb, indentation within expressions is allowed after operators,
 an open parenthesis and after commas.
@@ -595,11 +599,10 @@ an open parenthesis and after commas.
 With parenthesis and semicolons `(;)` you can use statements where only
 an expression is allowed:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   # computes fac(4) at compile time:
   const fac4 = (var x = 1; for i in 1..4: x *= i; x)
-  ```
-
 
 Procedures
 ==========
@@ -611,7 +614,8 @@ and [readLine](syncio.html#readLine,File) in the examples, the concept of a
 [differentiates these concepts](tut1.html#procedures-funcs-and-methods). In
 Nim, new procedures are defined with the `proc` keyword:
 
-  ```nim  test = "nim c $1"
+.. code-block:: nim
+
   proc yes(question: string): bool =
     echo question, " (y/n)"
     while true:
@@ -624,7 +628,6 @@ Nim, new procedures are defined with the `proc` keyword:
     echo "I'm sorry Dave, I'm afraid I can't do that."
   else:
     echo "I think you know what the problem is just as well as I do."
-  ```
 
 This example shows a procedure named `yes` that asks the user a `question`
 and returns true if they answered "yes" (or something similar) and returns
